@@ -29,7 +29,7 @@ zplug load --verbose
 export PATH=/usr/local/bin:$HOME/.nodebrew/current/bin:$PATH
 export GOPATH=/usr/local/Cellar/go
 export NODE_PATH=/usr/local/lib/node_modules
-export JAVA_HOME=`/usr/libexec/java_home`
+# export JAVA_HOME=`/usr/libexec/java_home`
 export PYENV_ROOT=/opt/pyenv
 export EDITOR=vim
 if [ -d "${PYENV_ROOT}" ]; then
