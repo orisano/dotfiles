@@ -12,7 +12,8 @@ zplug "zsh-users/zsh-completions"
 zplug "rimraf/k"
 zplug "plugins/git", from:oh-my-zsh, if:"which git"
 zplug "lib/clipboard", from:oh-my-zsh, if:"[[ $OSTYPE == *darwin* ]]"
-zplug "themes/agnoster", from:oh-my-zsh
+# zplug "themes/agnoster", from:oh-my-zsh
+zplug "themes/robbyrussell", from:oh-my-zsh
 
 if ! zplug check --verbose; then
   printf "Install? [y/N]: "
