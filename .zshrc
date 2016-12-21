@@ -16,8 +16,7 @@ if ! zplug check --verbose; then
     fi
 fi
 
-zplug load
-
+zplug load 
 export GOPATH=~/gocode
 export PATH=$GOPATH/bin:$PATH
 export PATH=$HOME/.nodebrew/current/bin:$PATH
@@ -32,7 +31,7 @@ export EDITOR=vim
 export XDG_CONFIG_HOME=$HOME/.config
 
 
-alias ls="gls --color=auto"
+alias ls="ls --color=auto"
 alias e=./a.out
 alias -s cpp="g++-6 -std=c++11 -O2 -I/Users/orisano/proj/"
 
