@@ -1,58 +1,49 @@
 [[ -d ~/.zplug ]] || {
-  curl -fLo ~/.zplug/zplug --create-dirs https://git.io/zplug
-  source ~/.zplug/zplug && zplug update --self
+    curl -sL zplug.sh/installer | zsh
 }
 
-source ~/.zplug/zplug
+source ~/.zplug/init.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# plugins
-zplug "zsh-users/zsh-syntax-highlighting"
+zplug "miekg/lean", use:"*.zsh"
 zplug "zsh-users/zsh-completions"
-zplug "rimraf/k"
-zplug "plugins/git", from:oh-my-zsh, if:"which git"
-zplug "lib/clipboard", from:oh-my-zsh, if:"[[ $OSTYPE == *darwin* ]]"
-# zplug "themes/agnoster", from:oh-my-zsh
-zplug "themes/robbyrussell", from:oh-my-zsh
+zplug "b4b4r07/enhancd", use:"init.sh"
 
 if ! zplug check --verbose; then
-  printf "Install? [y/N]: "
-  if read -q; then
-    echo; zplug install
-  else
-    echo
-  fi
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
 fi
 
-zplug load --verbose
+zplug load
 
-export PATH=/usr/local/bin:$HOME/.nodebrew/current/bin:$PATH
-export GOPATH=/usr/local/Cellar/go
-export NODE_PATH=/usr/local/lib/node_modules
-# export JAVA_HOME=`/usr/libexec/java_home`
+export GOPATH=~/gocode
+export PATH=$GOPATH/bin:$PATH
+export PATH=$HOME/.nodebrew/current/bin:$PATH
+
 export PYENV_ROOT=~/.pyenv
-export EDITOR=vim
 if [ -d "${PYENV_ROOT}" ]; then
-  export PATH=${PYENV_ROOT}/bin:$PATH
-  eval "$(pyenv init -)"
-  eval "$(pyenv virtualenv-init -)"
+    export PATH=${PYENV_ROOT}/bin:$PATH
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
 fi
+export EDITOR=vim
+export XDG_CONFIG_HOME=$HOME/.config
 
+
+alias ls="gls --color=auto"
 alias e=./a.out
-alias co="g++ -std=c++11 -O2 -D_LOCAL_"
-alias dco="g++ -std=c++11 -Og -g -D_LOCAL_ -D_GLIBCXX_DEBUG -fsanitize=address"
-alias -s cpp="g++ -std=c++11"
-alias -s c="gcc -std=c11"
+alias -s cpp="g++-6 -std=c++11 -O2 -I/Users/orisano/proj/"
 
-# functions
-# file to clipboard
-function cbc() {
-< $1 | pbcopy
+shost() {
+    socat TCP-LISTEN:$2,reuseaddr,fork EXEC:$1    
 }
-# 直近のvimで編集したファイルをコンパイルする
-function c() {
-local fname
-fname=$(history | grep vim | tail -n1 | cut -d' ' -f4)
-echo "[*] compile $fname"
-co $fname
+
+spid() {
+    ps lx | grep $1 | grep -v socat | grep -v grep | awk '{print $3}'
+}
+
+cbc() {
+    < $1 | pbcopy
 }
