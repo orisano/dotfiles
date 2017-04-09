@@ -7,7 +7,6 @@ source ~/.zplug/init.zsh
 
 zplug "miekg/lean", use:"*.zsh"
 zplug "zsh-users/zsh-completions"
-zplug "b4b4r07/enhancd", use:"init.sh"
 
 if ! zplug check --verbose; then
     printf "Install? [y/N]: "
@@ -16,10 +15,11 @@ if ! zplug check --verbose; then
     fi
 fi
 
-zplug load 
+zplug load
 export GOPATH=~/gocode
 export PATH=$GOPATH/bin:$PATH
 export PATH=$HOME/.nodebrew/current/bin:$PATH
+export PATH=$HOME/.rbenv/shims:$PATH
 
 export PYENV_ROOT=~/.pyenv
 if [ -d "${PYENV_ROOT}" ]; then
@@ -27,13 +27,16 @@ if [ -d "${PYENV_ROOT}" ]; then
     eval "$(pyenv init -)"
     eval "$(pyenv virtualenv-init -)"
 fi
-export EDITOR=vim
+export EDITOR=nvim
 export XDG_CONFIG_HOME=$HOME/.config
 
-
+export CXX="g++-6"
 alias ls="ls --color=auto"
 alias e=./a.out
-alias -s cpp="g++-6 -std=c++11 -O2 -I/Users/orisano/proj/"
+alias -s cpp="$CXX -std=c++11 -O2 -I/Users/orisano/proj/"
+alias dco="$CXX -std=c++11 -Og -g -D_LOCAL_ -D_GLIBCXX_DEBUG -fsanitize=address"
+alias vim=nvim
+alias -s rs="rustc"
 
 shost() {
     socat TCP-LISTEN:$2,reuseaddr,fork EXEC:$1    
@@ -46,3 +49,9 @@ spid() {
 cbc() {
     < $1 | pbcopy
 }
+
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+
+export PGDATA=/usr/local/var/postgres
+[ -e ~/.cargo/env ] && source ~/.cargo/env
+export RUST_SRC_PATH=~/opt/rust/src
