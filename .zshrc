@@ -3,28 +3,28 @@
 }
 source ~/.zplug/init.zsh
 
+setopt print_eight_bit
+setopt no_beep
 setopt prompt_subst
+setopt auto_pushd
+setopt pushd_ignore_dups
+setopt share_history
+setopt hist_ignore_all_dups
+
 zplug "miekg/lean", use:"*.zsh"
 zplug "zsh-users/zsh-completions"
-
-if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    fi
-fi
-
 zplug load
 
-alias ls="ls --color=auto"
-alias e="./a.out"
-alias vim="nvim"
-alias -s rs="rustc"
+bindkey -e
 
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
-export PGDATA="/usr/local/var/postgres"
-export RUST_SRC_PATH="$HOME/opt/rust/src"
+export CLICOLOR=1
+
+alias ls="ls -G -F"
+alias e="./a.out"
+alias vim="nvim"
+alias git="hub"
 
 cbc() {
-    < $1 | pbcopy
+    cat $1 | pbcopy
 }
