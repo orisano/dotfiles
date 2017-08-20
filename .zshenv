@@ -19,7 +19,6 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 export PATH="$PYENV_ROOT/shims:$PATH"
 export PYENV_SHELL=zsh
 source "$PYENV_ROOT/completions/pyenv.zsh"
-command pyenv rehash 2>/dev/null
 pyenv() {
   local command
   command="$1"
