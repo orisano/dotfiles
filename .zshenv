@@ -25,7 +25,6 @@ pyenv() {
   if [ "$#" -gt 0 ]; then
     shift
   fi
-
   case "$command" in
   activate|deactivate|rehash|shell)
     eval "$(pyenv "sh-$command" "$@")";;
@@ -33,6 +32,12 @@ pyenv() {
     command pyenv "$command" "$@";;
   esac
 }
+
+export PATH="$HOME/Library/Android/sdk/build-tools/26.0.1:$PATH"
+export PATH="$HOME/Library/Android/sdk/platform-tools:$PATH"
+
+export PATH="$HOME/.cache/rebar3/bin:$PATH"
+source "$HOME/.kerl/versions/system/activate"
 
 export EDITOR="nvim"
 export PAGER="less"
